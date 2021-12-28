@@ -122,9 +122,9 @@ def eval_genomes(genomes, config):
         # Set jump when pressing spacebar
         for i, dinosaur in enumerate(dinosaurs):
             # Activare nn using position and distance to next obstacle
+            dist = distance((dinosaur.rect.x, dinosaur.rect.y), obstacles[0].get_rect().midtop) if len(obstacles) > 0 else 0
             output = nets[i].activate((dinosaur.rect.y,
-                                       distance((dinosaur.rect.x, dinosaur.rect.y),
-                                                obstacles[0].get_rect().midtop)))
+                                       dist))
             if output[0] > 0.5 and dinosaur.rect.y == dinosaur.Y_POS:
                 dinosaur.dino_jump = True
                 dinosaur.dino_run = False
