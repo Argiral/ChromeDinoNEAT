@@ -16,18 +16,16 @@ SCREEN_WIDTH = 1100
 
 class Obstacle:
     def __init__(self, img, number_of_cactus):
-        from main import game_speed, obstacles
-        self._obs_list = obstacles
-        self._speed = game_speed
         self._image = img
         self._type = number_of_cactus
         self._rect = self._image[self._type].get_rect()
         self._rect.x = SCREEN_WIDTH
 
-    def update(self):
-        self._rect.x -= self._speed
+    def update(self, speed):
+        self._rect.x -= speed
         if self._rect.x < -self._rect.width:
-            self._obs_list.pop()
+            return True
+        return False
 
     def draw(self, screen):
         screen.blit(self._image[self._type], self._rect)
