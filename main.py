@@ -123,7 +123,7 @@ def eval_genomes(genomes, config):
         # Update game
         for dinosaur in dinosaurs:
             dinosaur.update()
-            dinosaur.draw(SCREEN)
+            dinosaur.draw(SCREEN, obstacles)
 
         # If no dinosaurs remains, stop
         if len(dinosaurs) == 0:
@@ -155,10 +155,10 @@ def eval_genomes(genomes, config):
 
         # Activate dinosaurs
         for i, dinosaur in enumerate(dinosaurs):
-            # Activate nn using position and distance to next obstacle
+            # Activate nn using position, distance to next obstacle, height of next obstacle, and speed
             dist = distance((dinosaur.rect.x, dinosaur.rect.y), obstacles[0].get_rect().midtop) if len(obstacles) > 0 else np.inf
             height =  obstacles[0].get_rect().y if len(obstacles) > 0 else np.inf
-            output = nets[i].activate((dinosaur.rect.y, dist, height))
+            output = nets[i].activate((dinosaur.rect.y, dist, height, game_speed))
             if output[0] > 0.5 and dinosaur.rect.y == dinosaur.Y_POS:
                 dinosaur.dino_jump = True
                 dinosaur.dino_run = False
@@ -197,5 +197,5 @@ def run(config_path):
 if __name__ == '__main__':
     global game_speed
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'default_config.txt')
+    config_path = os.path.join(local_dir, 'config.txt')
     run(config_path)
