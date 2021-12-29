@@ -12,6 +12,9 @@ LARGE_CACTUS = [pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus1.pn
                 pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus2.png")),
                 pygame.image.load(os.path.join("Assets/Cactus", "LargeCactus3.png"))]
 
+BIRD = [pygame.image.load(os.path.join("Assets/Bird", "ptera_1.png")),
+        pygame.image.load(os.path.join("Assets/Bird", "ptera_2.png"))]
+
 SCREEN_WIDTH = 1100
 
 class Obstacle:
@@ -44,3 +47,18 @@ class LargeCactus(Obstacle):
     def __init__(self, image, number_of_cactus):
         super().__init__(image, number_of_cactus)
         self._rect.y = 300
+
+
+class Bird(Obstacle):
+    def __init__(self, image, number_of_bird=0, height=0):
+        super().__init__(image, number_of_bird)
+        self._rect.y = 200 + height * 100   # Either 200 or 300
+        self.__counter = 0
+
+    def update(self, speed):
+        ret = super().update(speed)
+        self.__counter += 1
+        if self.__counter >= 5:
+            self._type = 1 - self._type
+            self.__counter = 0
+        return ret
