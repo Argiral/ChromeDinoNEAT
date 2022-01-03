@@ -51,5 +51,5 @@ class Dinosaur:
     def draw(self, SCREEN, obstacles=[]):
         SCREEN.blit(self.image, (self.rect.x, self.rect.y))
         pygame.draw.rect(SCREEN, self.color, (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)
-        for obstacle in obstacles:          # Draw line from dinosaur eye to object
-            pygame.draw.line(SCREEN, self.color, (self.rect.x + 54, self.rect.y + 11.5), obstacle.get_rect().center, 2)
+        # for obstacle in obstacles:          # Draw line from dinosaur eye to object
+        #     pygame.draw.line(SCREEN, self.color, (self.rect.x + 54, self.rect.y + 11.5), obstacle.get_rect().center, 2)

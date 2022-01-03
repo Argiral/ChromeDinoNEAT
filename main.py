@@ -25,12 +25,14 @@ BG = pygame.image.load((os.path.join("Assets/Other", "Track.png")))
 FONT = pygame.font.Font("freesansbold.ttf", 20)
 
 
-global game_speed, obstacles, dinosaurs, pop
+global game_speed, obstacles, dinosaurs, pop, points
 
 max_score = 0
 
 
 def remove(index):
+    # Set fitness
+    # ge[index].fitness = points
     dinosaurs.pop(index)
     ge.pop(index)
     nets.pop(index)
@@ -82,9 +84,9 @@ def eval_genomes(genomes, config):
         if points % 100 == 0:
             game_speed += 1
         # Increase fitness of survived dinos
-        if points % 50 == 0:
-            for i in range(len(ge)):
-                ge[i].fitness += 1
+        # if points % 50 == 0:
+        for i in range(len(ge)):
+            ge[i].fitness += 1
         # Points
         text = FONT.render(f'Points: {str(points)}', True, (0, 0, 0))
         SCREEN.blit(text, (950, 50))
